@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Forms</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js" charset="utf-8"></script>
+  <script src="https://code.angularjs.org/1.5.0/angular-messages.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+  <script src="module.js" charset="utf-8"></script>
+  <script src="controllers.js" charset="utf-8"></script>
+</head>
+
+<body ng-app="formApp" ng-controller="formCtrl">
+  <div class="container">
+    <h1>Form Practice</h1>
+    <form name="userForm" novalidate>
+
+      <div>
+        <label for="email">Email: </label>
+        <input type="email" name="email" ng-model="user.email" ng-minlength="6" required>
+        <div ng-messages="userForm.email.$error" role="alert" ng-show="userForm.$submitted">
+          <p class="error" ng-message="required"> You left this one blank!</p>
+          <p class="error" ng-show="userForm.email.$invalid">Enter a spammable email!</p>
+          <p class="error" ng-message="minlength"> Looks like your email is a little short. </p>
+        </div>
+      </div>
+
+      <div>
+        <label for="password">Enter Password:</label>
+        <input type="password" name="password" ng-model="user.password" ng-pattern="passwordRegex"
+        ng-minlength="8" required>
+        <div ng-messages="userForm.password.$error" ng-show="userForm.$submitted">
+          <p class="error" ng-message="required"> You must enter a password. </p>
+          <p class="error" ng-message="minlength"> Your password must be at least 8 characters long. </p>
+          <p class="error" ng-message="pattern"> Your password requires lowercase and uppercase letters, and a number.</p>
+        </div>
+      </div>
+
+      <div>
+        <label for="passwordConfirm">Confirm Password: </label>
+        <input type="password" name="confirm" ng-model="user.confirm" ng-match="user.password"
+        required>
+        <p class="error" ng-show="match"> Passwords must match! </p>
+      </div>
+
+      <button type="submit" class="btn" ng-click="sameSame()">Submit</button>
+
+    </form>
+  </div>
+
+</body>
+</head>
+<script>
+</script>
