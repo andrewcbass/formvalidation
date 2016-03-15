@@ -2,12 +2,14 @@
 
 var app = angular.module('formApp', ['ngMessages']);
 
+//controller for the user form
 app.controller('formCtrl', function($scope) {
 
+  //check password strength (LETTER, letter, number, length)
   $scope.passwordRegex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}";
 
   $scope.userFormSubmit = function(valid) {
-
+    //only submit, clear form, and mark complete if valid form
     if(valid) {
       swal(swal("Weclcome!", "Your account has been created!", "success"));
       $scope.user = {};
@@ -18,12 +20,16 @@ app.controller('formCtrl', function($scope) {
 });
 
 
+//controller for the credit card info
 app.controller('cardCtrl', function($scope) {
+  //variable for checking valid card number from Luhn validation
   var checking = false;
-  var cardType = '';
+
+  //variable for checking card type based on first number
+  var cardType = false;
 
   $scope.creditSubmit = function(valid) {
-
+    //only submit, clear form, and mark complete if valid form
     if(valid) {
       swal(swal("Thank You!", "Your payment is being processed!", "success"));
       $scope.card = {};
@@ -37,7 +43,7 @@ app.controller('cardCtrl', function($scope) {
 
     var ccArr = ccString.split('');
 
-    //check for card type
+    //check for card type, only looks at first number
     if(ccArr[0] == "3") {
       cardType = "You are paying with American Express."
     }
@@ -50,7 +56,11 @@ app.controller('cardCtrl', function($scope) {
     if(ccArr[0] == "6") {
       cardType = "You are paying with Discover."
     }
+    else {
+      cardType = "We only accept AmEx, Visa, Mastercard, and Discover."
+    }
 
+    //start of Luhn validation
     var evenCheck = 1;
     for(var i=ccArr.length - 1; i >= 0; i--) {
       evenCheck += 1;
@@ -68,6 +78,7 @@ app.controller('cardCtrl', function($scope) {
       });
 
       if(total % 10 === 0) {
+        //if not real, set the check variable to false
         checking =  false;
       }
       else {
@@ -77,12 +88,19 @@ app.controller('cardCtrl', function($scope) {
     }
 
     $scope.checkNum = function() {
+      //false keeps error hidden, true shows error messages
       return checking;
     }
 
+    //show the card type message.
     $scope.checkBrand = function() {
-      $scope.card.brand = cardType;
-      return true;
+      if(cardType) {
+        $scope.card.brand = cardType;
+        return true;
+      }
+      else {
+        return cardType;
+      }
     }
 
 });
