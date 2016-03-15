@@ -19,7 +19,7 @@
 <body ng-app="formApp" ng-controller="formCtrl">
   <div class="container">
     <h1>User Information</h1>
-    <form name="userForm" ng-submit="formSubmit(userForm.$valid)" novalidate>
+    <form name="userForm" ng-submit="userFormSubmit(userForm.$valid)" novalidate>
 
       <div>
         <label for="email">Email: </label>
@@ -33,19 +33,28 @@
 
       <div>
         <label for="password">Enter Password:</label>
-        <input type="password" name="password" ng-model="user.password" ng-pattern="passwordRegex"
-        ng-minlength="8" required>
+        <input type="password" name="password" ng-model="user.password"
+        ng-pattern="passwordRegex" ng-minlength="8" required>
         <div ng-messages="userForm.password.$error" ng-show="userForm.password.$touched">
-          <p class="error" ng-message="required"> You must enter a password. </p>
-          <p class="error" ng-message="minlength"> Your password must be at least 8 characters long. </p>
-          <p class="error" ng-message="pattern"> Your password requires lowercase and uppercase letters, and a number.</p>
+          <p class="error" ng-message="required">
+            You must enter a password.
+          </p>
+          <p class="error" ng-message="minlength">
+            Your password must be at least 8 characters long.
+          </p>
+          <p class="error" ng-message="pattern">
+            Your password requires lowercase and uppercase letters, and a number.
+          </p>
         </div>
       </div>
 
       <div>
         <label for="passwordConfirm">Confirm Password: </label>
-        <input type="password" name="confirm" ng-model="user.confirm" ng-pattern="{{user.password}}" required>
-        <p class="error" ng-show="user.password !== user.confirm && userForm.confirm.$touched"> Passwords must match! </p>
+        <input type="password" name="confirm" ng-model="user.confirm"
+        ng-pattern="{{user.password}}" required>
+        <p class="error" ng-show="user.password !== user.confirm && userForm.confirm.$touched">
+          Passwords must match!
+        </p>
       </div>
 
 
@@ -54,9 +63,49 @@
     </form>
   </div>
 
+<!-- CREDIT CARD INFO BELOW -->
+
   <div class="container" ng-controller="cardCtrl">
     <h1>Credit Card Payment</h1>
-    
+    <h2 class="error">Input FAKE data.  Not encrypted!!!</h2>
+
+    <form name="creditCard" ng-submit="creditSubmit(creditCard.$valid)">
+      <div>
+        <label for="ccNum">Credit Card Number:</label>
+        <input type="text" name="cardNum" ng-model="card.num"
+        ng-blur="validCardCheck($event)" required>
+        <p class="error" ng-show="checkNum()"> Invalid Card Number </p>
+        <!-- determine card type and display here? -->
+      </div>
+
+      <div>
+        <label for="exp">Expiration: </label>
+        <input type="month" ng-model="card.exp" required>
+        <label for="cvv">CVV: </label>
+        <input type="num" ng-model="card.cvv" ng-minlength="3" ng-maxlength="4" required>
+      </div>
+      <br>
+
+      <div>
+        <label for="country">Country: </label>
+        <input type="text" list="country" ng-model="card.country" required>
+
+        <datalist id="country">
+          <option value>Choose country</option>
+          <option value="USA" >United States of America</option>
+          <option value="CHN" >China</option>
+          <option value="DEU" >Germany</option>
+          <option value="GBR" >United Kingdom</option>
+          <option value="IND" >India</option>
+        </datalist>
+
+        <label for="postal">Postal Code: </label>
+        <input type="text" name="postal" ng-model="card.postal"
+        ng-minlength="5" ng-maxlength="6" required>
+      </div>
+
+      <button type="submit" class="btn">Pay the Piper!</button>
+    </form>
   </div>
 
 </body>
