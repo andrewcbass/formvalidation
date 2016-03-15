@@ -56,9 +56,7 @@ app.controller('cardCtrl', function($scope) {
     if(ccArr[0] == "6") {
       cardType = "You are paying with Discover."
     }
-    else {
-      cardType = "We only accept AmEx, Visa, Mastercard, and Discover."
-    }
+    
 
     //start of Luhn validation
     var evenCheck = 1;
