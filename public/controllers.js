@@ -17,16 +17,34 @@ app.controller('formCtrl', function($scope) {
 
 app.controller('cardCtrl', function($scope) {
   var checking = false;
+  var cardType = '';
   $scope.creditSubmit = function(valid) {
     console.log(valid);
 
   }
 
   $scope.validCardCheck = function(event) {
-    console.log(event);
+
     var ccString = $scope.card.num;
 
     var ccArr = ccString.split('');
+
+    //check for card type
+    if(ccArr[0] == "3") {
+      cardType = "You are paying with American Express."
+    }
+    if(ccArr[0] == "4") {
+      cardType = "You are paying with Visa."
+    }
+    if(ccArr[0] == "5") {
+      cardType = "You are paying with Mastercard."
+    }
+    if(ccArr[0] == "6") {
+      cardType = "You are paying with Discover."
+    }
+
+    console.log('CARDTYPE', cardType);
+
     var evenCheck = 1;
     for(var i=ccArr.length - 1; i >= 0; i--) {
       evenCheck += 1;
@@ -42,7 +60,6 @@ app.controller('cardCtrl', function($scope) {
       var total = ccArr.reduce(function(a, b) {
         return Number(a) + Number(b);
       }) * 9;
-      console.log('TOTAL', total);
 
       if(total % 10 === 0) {
         checking =  false;
@@ -54,8 +71,12 @@ app.controller('cardCtrl', function($scope) {
     }
 
     $scope.checkNum = function() {
-      console.log('checked');
       return checking;
+    }
+
+    $scope.checkBrand = function() {
+      $scope.card.brand = cardType;
+      return true;
     }
 
 });

@@ -62,6 +62,8 @@
 
     </form>
   </div>
+  <br>
+  <hr>
 
 <!-- CREDIT CARD INFO BELOW -->
 
@@ -74,15 +76,22 @@
         <label for="ccNum">Credit Card Number:</label>
         <input type="text" name="cardNum" ng-model="card.num"
         ng-blur="validCardCheck($event)" required>
+        <p class="cardBrand" ng-show="checkBrand()" ng-model="card.brand">{{card.brand}}</p>
         <p class="error" ng-show="checkNum()"> Invalid Card Number </p>
-        <!-- determine card type and display here? -->
       </div>
-
+<br>
       <div>
         <label for="exp">Expiration: </label>
-        <input type="month" ng-model="card.exp" required>
+        <input type="month" ng-model="card.exp"
+        min="2016-03" required>
+
         <label for="cvv">CVV: </label>
-        <input type="num" ng-model="card.cvv" ng-minlength="3" ng-maxlength="4" required>
+        <input type="num" name="cvv" ng-model="card.cvv" ng-minlength="3" ng-maxlength="4" required>
+        <div ng-messages="creditCard.cvv.$error" ng-show="creditCard.cvv.$touched">
+          <p class="error" ng-message="required">Provide a CVV.</p>
+          <p class="error" ng-message="minlength">Your CVV is too short.</p>
+          <p class="error" ng-message="maxlength">Your CVV is too long.</p>
+        </div>
       </div>
       <br>
 
@@ -102,6 +111,11 @@
         <label for="postal">Postal Code: </label>
         <input type="text" name="postal" ng-model="card.postal"
         ng-minlength="5" ng-maxlength="6" required>
+        <div ng-messages="creditCard.postal.$error" ng-show="creditCard.postal.$touched">
+          <p class="error" ng-message="required">You must provide a postal code.</p>
+          <p class="error" ng-message="minlength">Your postal code is too short.</p>
+          <p class="error" ng-message="maxlength">Your postal code is too long.</p>
+        </div>
       </div>
 
       <button type="submit" class="btn">Pay the Piper!</button>
