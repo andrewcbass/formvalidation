@@ -13,9 +13,7 @@ app.controller('formCtrl', function($scope) {
       $scope.user = {};
       $scope.user.completed = true;
     }
-
-
-  }
+  };
 
 });
 
@@ -29,9 +27,9 @@ app.controller('cardCtrl', function($scope) {
     if(valid) {
       swal(swal("Thank You!", "Your payment is being processed!", "success"));
       $scope.card = {};
+      $scope.card.completed = true;
     }
-    $scope.card.completed = true;
-  }
+  };
 
   $scope.validCardCheck = function(event) {
 
@@ -67,7 +65,7 @@ app.controller('cardCtrl', function($scope) {
 
       var total = ccArr.reduce(function(a, b) {
         return Number(a) + Number(b);
-      }) * 9;
+      });
 
       if(total % 10 === 0) {
         checking =  false;
