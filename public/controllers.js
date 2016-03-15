@@ -7,7 +7,6 @@ app.controller('formCtrl', function($scope) {
   $scope.passwordRegex = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}";
 
   $scope.userFormSubmit = function(valid) {
-    console.log(valid);
 
     if(valid) {
       swal(swal("Weclcome!", "Your account has been created!", "success"));
@@ -26,14 +25,12 @@ app.controller('cardCtrl', function($scope) {
   var cardType = '';
 
   $scope.creditSubmit = function(valid) {
-    console.log(valid);
-    console.log($scope.creditCard);
 
     if(valid) {
       swal(swal("Thank You!", "Your payment is being processed!", "success"));
       $scope.card = {};
-      $scope.card.completed = true;
     }
+    $scope.card.completed = true;
   }
 
   $scope.validCardCheck = function(event) {

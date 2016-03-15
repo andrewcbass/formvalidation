@@ -71,7 +71,8 @@
 
 <!-- CREDIT CARD INFO BELOW -->
 
-  <div class="container" ng-controller="cardCtrl" ng-hide="card.completed">
+  <div class="container" ng-controller="cardCtrl" >
+    <div ng-hide="card.completed">
     <h1>Credit Card Payment</h1>
     <h2 class="error">Input FAKE data.  Not encrypted!!!</h2>
 
@@ -127,8 +128,9 @@
       <button type="submit" class="btn">Pay the Piper!</button>
     </form>
   </div>
+  <h4 ng-show="card.completed"> Already paid!</h4>
+</div>
 
-<h4 ng-show="card.completed"> You already paid!</h4>
 
 </body>
 </head>
