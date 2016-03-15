@@ -9,6 +9,12 @@ app.controller('formCtrl', function($scope) {
   $scope.userFormSubmit = function(valid) {
     console.log(valid);
 
+    if(valid) {
+      swal(swal("Weclcome!", "Your account has been created!", "success"));
+      $scope.user = {};
+      $scope.user.completed = true;
+    }
+
 
   }
 
@@ -18,9 +24,16 @@ app.controller('formCtrl', function($scope) {
 app.controller('cardCtrl', function($scope) {
   var checking = false;
   var cardType = '';
+
   $scope.creditSubmit = function(valid) {
     console.log(valid);
+    console.log($scope.creditCard);
 
+    if(valid) {
+      swal(swal("Thank You!", "Your payment is being processed!", "success"));
+      $scope.card = {};
+      $scope.card.completed = true;
+    }
   }
 
   $scope.validCardCheck = function(event) {
@@ -42,8 +55,6 @@ app.controller('cardCtrl', function($scope) {
     if(ccArr[0] == "6") {
       cardType = "You are paying with Discover."
     }
-
-    console.log('CARDTYPE', cardType);
 
     var evenCheck = 1;
     for(var i=ccArr.length - 1; i >= 0; i--) {
